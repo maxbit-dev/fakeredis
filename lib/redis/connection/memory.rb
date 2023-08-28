@@ -515,10 +515,10 @@ class Redis
         elem
       end
 
-      def lpop(key)
+      def lpop(key, count = nil)
         data_type_check(key, Array)
         return unless data[key]
-        data[key].shift
+        count ? data[key].shift(count) : data[key].shift
       end
 
       def blpop(keys, timeout=0)
