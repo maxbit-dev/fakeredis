@@ -518,7 +518,13 @@ class Redis
       def lpop(key, count = nil)
         data_type_check(key, Array)
         return unless data[key]
-        count ? data[key].shift(count) : data[key].shift
+        return data[key].shift unless count
+
+        result = data[key].shift(count)
+        return result unless result.empty?
+
+        data.delete(key)
+        nil
       end
 
       def blpop(keys, timeout=0)
