@@ -159,6 +159,8 @@ class Redis
 
       def eval; end
 
+      def script(_subcommand, *_args); end
+
       def move key, destination_id
         raise Redis::CommandError, "ERR source and destination objects are the same" if destination_id == database_id
         destination = find_database(destination_id)
